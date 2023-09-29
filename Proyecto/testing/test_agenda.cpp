@@ -89,9 +89,21 @@ TEST_CASE("Agenda Eliminacion") {
         REQUIRE(res == eRmContacto::ErrRmIndex);
     }
 
-    SECTION("Eliminando el 3 y 4 elemento") {
+    SECTION("Eliminando el 5 elemento") {
         eRmContacto res = removerContacto(miAgenda, {"Pedro", "Rodriguez", "Avenida 890", "pedro@example.com", "999-888-7777", {10, 4, 1987},  eGrupo::FAMILIA});
         REQUIRE(res == eRmContacto::ExitoRemover);
+    }
+
+    SECTION("Eliminando el 1 y 4 elemento") //mio
+    {
+        eRmContacto res = removerContacto(miAgenda, eGrupo::AMIGO);
+        REQUIRE(res == eRmContacto::ExitoRemover);
+    }
+
+    SECTION("Eliminando elemento grupo HOSPITAL") //mio
+    {
+        eRmContacto res = removerContacto(miAgenda, eGrupo::HOSPITAL);
+        REQUIRE(res == eRmContacto::ErrRmGrup);
     }
 
     delete[] miAgenda->misContactos;
@@ -130,6 +142,44 @@ TEST_CASE("Agenda Busqueda") {
         sContacto res = buscarContacto(miAgenda, "Laura Lopez" );
         REQUIRE(res.Nombre == "Laura");
     }
+
+    delete[] miAgenda->misContactos;
+    delete miAgenda;
+};
+
+
+
+TEST_CASE("Agenda Busqueda") //mio
+{
+    sAgenda* miAgenda = new sAgenda;
+    REQUIRE(miAgenda != nullptr); // Puntero de Agenda es nullptr?
+
+    miAgenda->CantMaxima = 6;
+    miAgenda->CantContactos = 0;
+    miAgenda->misContactos = new sContacto[miAgenda->CantMaxima];
+
+    REQUIRE(miAgenda->misContactos != nullptr);
+
+    {
+        agregarContacto(miAgenda, {"Juan", "Perez", "Calle 123", "juan@example.com", "123-456-7890", {5, 3, 1985},  eGrupo::AMIGO});
+        agregarContacto(miAgenda, {"Maria", "Gonzalez", "Avenida 456", "maria@example.com", "987-654-3210", {15, 11, 1992},  eGrupo::FAMILIA});
+        agregarContacto(miAgenda, {"Carlos", "Lopez", "Plaza 789", "carlos@example.com", "555-123-4567", {8, 7, 1980},  eGrupo::TRABAJO});
+        agregarContacto(miAgenda, {"Ana", "Martinez", "Calle 567", "ana@example.com", "111-222-3333", {20, 12, 1998},  eGrupo::AMIGO});
+        agregarContacto(miAgenda, {"Pedro", "Rodriguez", "Avenida 890", "pedro@example.com", "999-888-7777", {10, 4, 1987},  eGrupo::FAMILIA});
+        agregarContacto(miAgenda, {"Laura", "Lopez", "Plaza 123", "laura@example.com", "333-444-5555", {3, 9, 1995},  eGrupo::TRABAJO});
+    }
+    SECTION("Imprimo contactos con grupo FAMILIA") {
+        sContacto res = imprimirContacto(miAgenda, FAMILIA);
+        REQUIRE(res == ePrintContacto::ExitoPrint);
+    }
+
+    SECTION("Imprimo contactos con grupo HOSPITAL") 
+    {
+        sContacto res = imprimirContacto(miAgenda, HOSPITAL);
+        REQUIRE(res == ePrintContacto::ErrPrintContactos);
+    }
+
+   
 
     delete[] miAgenda->misContactos;
     delete miAgenda;

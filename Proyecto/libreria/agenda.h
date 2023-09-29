@@ -9,13 +9,15 @@ const sContacto ContactoNulo = { "", "", "", "", "", {0, 0, 0}, eGrupo::NINGUNO 
 // enum Agenda { ErrAgenda = -4 };
 enum agrContacto  { ErrAgrEspacio = -1,  ExitoAgregar = 1 };
 enum updContacto  { ErrUpdContacto = -2, ErrUpdIndex = -1,  ExitoModificar = 1 };
-enum rmContacto   { ErrRmNomApe = -3,    ErrRmIndex = -2,   ErrRmContacto = -1, ExitoRemover = 1 };
+enum rmContacto   { ErrRmGrup = -4, ErrRmNomApe = -3,    ErrRmIndex = -2,   ErrRmContacto = -1, ExitoRemover = 1 }; //ErrRmGrup agregado
 enum srchContacto { ErrSrchValor = -2,   ErrSrchIndex = -1, ExitoBuscar = 1 };
+enum printContacto { ErrPrintContactos = -1, ExitoPrint = 1}; //mio
 
 typedef enum agrContacto  eAgrContacto;
 typedef enum updContacto  eUpdContacto;
 typedef enum rmContacto   eRmContacto;
 typedef enum srchContacto eSrchContacto;
+typedef enum printContacto ePrintContacto; //mio
 
 struct Agenda {
     sContacto* misContactos;
@@ -37,9 +39,14 @@ eUpdContacto actualizarContacto(sAgenda* miAgenda, u_int indexContacto, sContact
 eRmContacto removerContacto(sAgenda* miAgenda, str Nombre, str Apellido);
 eRmContacto removerContacto(sAgenda* miAgenda, sContacto miContacto);
 eRmContacto removerContacto(sAgenda* miAgenda, u_int indexContacto);
+eRmContacto removerContacto(sAgenda* miAgenda, eGrupo Grupo) //mio
 
 /* Funciones de busqueda de contacto */
 sContacto buscarContacto(sAgenda* miAgenda, str valorBusqueda);
 sContacto buscarContacto(sAgenda* miAgenda, u_int indexContacto);
+
+/* Funciones que imprimen por grupo (mio) */
+ePrintContacto imprimirContacto(sAgenda* miAgenda, eGrupo Grupo);
+ePrintContacto imprimirContacto(sAgenda* miAgenda);
 
 #endif // AGENDA_H

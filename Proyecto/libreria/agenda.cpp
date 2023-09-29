@@ -1,5 +1,7 @@
 #include "agenda.h"
 
+
+
 bool hayEspacio(sAgenda* miAgenda) {
     return (miAgenda->CantMaxima - miAgenda->CantContactos > 0);
 }
@@ -129,4 +131,80 @@ sContacto buscarContacto(sAgenda* miAgenda, str valorBusqueda) {
  */
 sContacto buscarContacto(sAgenda* miAgenda, u_int indexContacto) {
     return indexContacto >= miAgenda->CantContactos - 1 ? ContactoNulo : miAgenda->misContactos[indexContacto];
+}
+
+
+
+//mis funciones
+
+//elimina por grupo
+eRmContacto removerContacto(sAgenda* miAgenda, eGrupo Grupo) //preguntar como se pasa la variable grupo para saber cual eliminar
+{
+    int cont;
+    cont = 0;
+    sContacto* aux = miAgenda->misContactos, * ultimo = (miAgenda->misContactos) + miAgenda->CantContactos - 1;
+
+    while(true)
+     {
+        if ((aux->Grupo == Grupo))
+         {
+            *aux = ContactoNulo;
+            cont++;
+         }
+        if (aux == ultimo)
+            break;
+        aux++;
+    }
+    if(cont == 0)
+        return eRmContacto::ErrRmGrup;
+    else
+        return eRmContacto::ExitoRemover;
+}
+
+//imprimo por condicion
+ePrintContacto imprimirContacto(sAgenda* miAgenda, eGrupo Grupo) //preguntar como se pasa la variable grupo para saber cual eliminar
+{
+    int cont;
+    cont = 0;
+    sContacto* aux = miAgenda->misContactos, * ultimo = (miAgenda->misContactos) + miAgenda->CantContactos - 1;
+
+    while(true)
+     {
+        if ((aux->Grupo == Grupo))
+        {
+            std::cout<<*aux;
+            cont++;
+        }
+        if (aux == ultimo)
+            break;
+        aux++;
+    }
+    if(cont == 0)
+        return ePrintContacto::ErrPrintContactos;
+    else
+        return ePrintContacto::ExitoPrint;
+}
+
+//imprimo ordenado por grupos
+ePrintContacto imprimirContacto(sAgenda* miAgenda)
+{
+    int cont;
+    cont = 0;
+    sContacto* aux = miAgenda->misContactos, * ultimo = (miAgenda->misContactos) + miAgenda->CantContactos - 1;
+
+    while(true)
+     {
+        if ((aux->Grupo == Grupo))
+        {
+            std::cout<<*aux;
+            cont++;
+        }
+        if (aux == ultimo)
+            break;
+        aux++;
+    }
+    if(cont == 0)
+        return ePrintContacto::ErrPrintContactos;
+    else
+        return ePrintContacto::ExitoPrint;
 }

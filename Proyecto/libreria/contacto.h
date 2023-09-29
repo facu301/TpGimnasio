@@ -3,7 +3,7 @@
 
 #include "encabezados.h"
 
-enum Grupo { NINGUNO, FAMILIA, AMIGO, TRABAJO, UNIVERSIDAD };
+enum Grupo { NINGUNO, FAMILIA, AMIGO, TRABAJO, UNIVERSIDAD, HOSPITAL };
 typedef Grupo eGrupo;
 
 struct Fecha {
