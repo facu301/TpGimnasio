@@ -1,5 +1,5 @@
 #include <iostream>
-#include <agenda.h>
+#include <gimnasio.h>
 
 using namespace std;
 

@@ -1,22 +1,22 @@
-#include "agenda.h"
+#include "gimnasio.h"
 
 
 
-bool hayEspacio(sAgenda* miAgenda) {
-    return (miAgenda->CantMaxima - miAgenda->CantContactos > 0);
+bool hayEspacio(sGimnasio* miGimnasio) {
+    return (miGimnasio->CantMaxima - miGimnasio->CantClientes > 0);
 }
 
 /**
  * @brief Función agregar contacto a la agenda
  * @return Error: ErrAgrEspacio, sino ExitoAgregar
  */
-eAgrContacto agregarContacto(sAgenda* miAgenda, sContacto miContacto) {
-    if (!hayEspacio(miAgenda))
-        return eAgrContacto::ErrAgrEspacio;
+eAgrCliente agregarCliente(sGimnasio* miGimnasio, sCliente miCliente) {
+    if (!hayEspacio(miGimnasio))
+        return eAgrCliente::ErrAgrEspacio;
 
-    miAgenda->CantContactos++;
-    miAgenda->misContactos[miAgenda->CantContactos - 1] = miContacto;
-    return eAgrContacto::ExitoAgregar;
+    miGimnasio->CantClientes++;
+    miGimnasio->misClientes[miGimnasio->CantClientes - 1] = miCliente;
+    return eAgrCliente::ExitoAgregar;
 }
 
 /**
