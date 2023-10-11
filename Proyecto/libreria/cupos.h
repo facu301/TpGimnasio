@@ -6,8 +6,8 @@
 struct CuposClases {
     eTipoClase TipCla;
     eDia dia;
-    sHoraReserva Hora;
-    int cupo;
+    sHoraReserva Hora[];
+    int cupo[];
 }; typedef struct CuposClases sCuposClases;
 
 #endif
